@@ -1,0 +1,10 @@
+{
+    "name": "kamil-koscielniak/eloquent-filters",
+    "authors": [
+        {
+            "name": "Kamil Kościelniak",
+            "email": "koscielniak.k88@gmail.com"
+        }
+    ],
+    "require": {}
+}
