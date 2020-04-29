@@ -2,15 +2,13 @@
 
 namespace KamilKoscielniak\EloquentFilters\Filters;
 
-use KamilKoscielniak\EloquentFilters\Contracts\IFilter;
-
 class RangeFilter extends AbstractFilter
 {
     /**
      * @param string $attr_name
-     * @return IFilter
+     * @return RangeFilter
      */
-    public function filter(string $attr_name): IFilter
+    public function filter(string $attr_name): RangeFilter
     {
         $value = $this->request->input($attr_name);
         $value_arr = explode(config('filters.range_separator'), $value);
@@ -29,14 +27,29 @@ class RangeFilter extends AbstractFilter
 //            }
 
             if ($from) {
-                $this->query->where($attr_name, '>', $from);
+                $this->query->where($attr_name, $this->getPositiveOperator(), $from);
             }
 
             if ($to) {
-                $this->query->where($attr_name, '<', $to);
+                $this->query->where($attr_name, $this->getNegativeOperator(), $to);
             }
         }
 
         return $this;
+    }
+
+    protected function getPositiveOperator(): string
+    {
+        return '>';
+    }
+
+    protected function getNegativeOperator(): string
+    {
+        return '<';
+    }
+
+    protected function wrapValue(string $value): string
+    {
+        return $value;
     }
 }

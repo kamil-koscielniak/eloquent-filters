@@ -2,30 +2,20 @@
 
 namespace KamilKoscielniak\EloquentFilters\Filters;
 
-use KamilKoscielniak\EloquentFilters\Contracts\IFilter;
-
 class OneToOneFilter extends AbstractFilter
 {
-    /**
-     * @param string $attr_name
-     *
-     * @return IFilter
-     */
-    public function filter(string $attr_name): IFilter
+    protected function getPositiveOperator(): string
     {
-        if ($this->request->input($attr_name) === null) {
-            return $this;
-        }
+        return '=';
+    }
 
-        $value = $this->request->input($attr_name);
-        $operator = $this->isExcludeOptionOn($value) ? '!=' : '=';
+    protected function getNegativeOperator(): string
+    {
+        return '!=';
+    }
 
-        if ($this->isRelationshipFilter($attr_name)) {
-            return $this->relationFilter($attr_name, $operator, $value);
-        }
-
-        $this->query->where($attr_name, $operator, $value);
-
-        return $this;
+    protected function wrapValue(string $value): string
+    {
+        return $value;
     }
 }

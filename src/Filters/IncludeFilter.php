@@ -2,28 +2,20 @@
 
 namespace KamilKoscielniak\EloquentFilters\Filters;
 
-use KamilKoscielniak\EloquentFilters\Contracts\IFilter;
-
 class IncludeFilter extends AbstractFilter
 {
-    /**
-     * @param string $attr_name
-     * @return IFilter
-     */
-    public function filter(string $attr_name): IFilter
+    protected function getPositiveOperator(): string
     {
-        if ($this->request->input($attr_name) !== null) {
-            $value = $this->request->input($attr_name);
-            $value = "%$value%";
-            $operator = $this->isExcludeOptionOn($value) ? 'not like' : 'like';
+        return 'like';
+    }
 
-            if ($this->isRelationshipFilter($attr_name)) {
-                return $this->relationFilter($attr_name, $operator, $value);
-            }
+    protected function getNegativeOperator(): string
+    {
+        return 'not like';
+    }
 
-            $this->query->where($attr_name, $operator, $value);
-        }
-
-        return $this;
+    protected function wrapValue(string $value): string
+    {
+        return "%$value%";
     }
 }
