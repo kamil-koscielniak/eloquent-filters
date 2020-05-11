@@ -11,5 +11,15 @@
     "require": {},
     "require-dev": {
         "orchestra/testbench": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "KamilKoscielniak\\EloquentFilters\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KamilKoscielniak\\EloquentFilters\\Tests\\": "tests/"
+        }
     }
 }
