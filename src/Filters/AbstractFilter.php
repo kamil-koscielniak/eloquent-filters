@@ -15,9 +15,14 @@ abstract class AbstractFilter
      *
      * @param Builder $query
      * @param Request $request
+     * @throws \Exception
      */
     public function __construct(Builder $query, Request $request)
     {
+        if (is_null(config('filters'))) {
+            throw new \Exception("Please publish the config file by running 'php artisan vendor:publish --tag=config'");
+        }
+
         $this->query = $query;
         $this->request = $request;
     }

@@ -21,13 +21,8 @@ trait Filterable
         }
 
         foreach (static::$filters as $attr_name => $filterType) {
-            try {
-                /** @var AbstractFilter $filter */
-                $filter = new $filterType($query, $request);
-            } catch (\Exception $e) {
-                continue;
-            }
-
+            /** @var AbstractFilter $filter */
+            $filter = new $filterType($query, $request);
             $filter->filter($attr_name);
             $query = $filter->query;
         }
