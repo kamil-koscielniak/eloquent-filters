@@ -2,7 +2,7 @@
 
 namespace KamilKoscielniak\EloquentFilters\Filters;
 
-class IncludeFilter extends AbstractFilter
+class PartialFilter extends AbstractFilter
 {
     protected function getPositiveOperator(): string
     {
