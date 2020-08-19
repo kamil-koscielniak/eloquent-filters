@@ -2,7 +2,7 @@
 
 namespace KamilKoscielniak\EloquentFilters\Filters;
 
-class OneToOneFilter extends AbstractFilter
+class ExactFilter extends AbstractFilter
 {
     protected function getPositiveOperator(): string
     {
