@@ -15,11 +15,17 @@ class DummyModel extends Model
     use Filterable;
 
     protected $table = 'products';
-    protected $fillable = ['name', 'price', 'is_available'];
+    protected $fillable = ['category_id', 'name', 'price', 'is_available'];
 
     public static array $filters = [
         'name' => PartialFilter::class,
         'price' => RangeFilter::class,
         'is_available' => ExactFilter::class,
+        'category__name' => PartialFilter::class,
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(DummySubModel::class);
+    }
 }

@@ -33,11 +33,20 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function setUpDatabase()
     {
-        $this->app['db']->connection()->getSchemaBuilder()->create('products', function (Blueprint $table) {
+        $schema_builder = $this->app['db']->connection()->getSchemaBuilder();
+
+        $schema_builder->create('products', function (Blueprint $table) {
             $table->id();
+            $table->integer('category_id')->nullable();
             $table->string('name')->nullable();
             $table->float('price', 5, 2)->nullable();
             $table->boolean('is_available')->nullable();
+            $table->timestamps();
+        });
+
+        $schema_builder->create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
             $table->timestamps();
         });
     }
