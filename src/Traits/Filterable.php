@@ -4,7 +4,7 @@ namespace KamilKoscielniak\EloquentFilters\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use KamilKoscielniak\EloquentFilters\Contracts\IFilter;
+use KamilKoscielniak\EloquentFilters\Filters\AbstractFilter;
 
 trait Filterable
 {
@@ -14,16 +14,15 @@ trait Filterable
      *
      * @return Builder
      */
-    public static function scopeFilter(Builder $query, Request $request)
+    public function scopeFilter(Builder $query, Request $request)
     {
-        foreach (static::$filters as $attr_name => $filterType) {
-            try {
-                /** @var IFilter $filter */
-                $filter = new $filterType($query, $request);
-            } catch (\Exception $e) {
-                continue;
-            }
+        if (! property_exists(self::class, 'filters')) {
+            return $query;
+        }
 
+        foreach (static::$filters as $attr_name => $filterType) {
+            /** @var AbstractFilter $filter */
+            $filter = new $filterType($query, $request);
             $filter->filter($attr_name);
             $query = $filter->query;
         }

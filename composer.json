@@ -1,10 +1,25 @@
 {
     "name": "kamil-koscielniak/eloquent-filters",
+    "description": "Simply way to add filters to Eloquent models",
+    "license": "MIT",
     "authors": [
         {
-            "name": "Kamil Kościelniak",
+            "name": "kamil-koscielniak",
             "email": "koscielniak.k88@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "orchestra/testbench": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "KamilKoscielniak\\EloquentFilters\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KamilKoscielniak\\EloquentFilters\\Tests\\": "tests/"
+        }
+    }
 }
