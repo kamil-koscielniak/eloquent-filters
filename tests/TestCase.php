@@ -4,6 +4,7 @@
 namespace KamilKoscielniak\EloquentFilters\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
 use KamilKoscielniak\EloquentFilters\EloquentFiltersProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -13,6 +14,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
         $this->setUpDatabase();
+        Artisan::call('vendor:publish --tag=config');
     }
 
     protected function getPackageProviders($app)
@@ -36,7 +38,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $schema_builder = $this->app['db']->connection()->getSchemaBuilder();
 
         $schema_builder->create('products', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('category_id')->nullable();
             $table->string('name')->nullable();
             $table->float('price', 5, 2)->nullable();
@@ -45,7 +47,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         });
 
         $schema_builder->create('categories', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });

@@ -21,7 +21,7 @@ class RangeFilterTest extends TestCase
         DummyModel::create(['name' => 'Prod#3', 'price' => 22]);
         DummyModel::create(['name' => 'Prod#4', 'price' => 55]);
 
-        $this->assertDatabaseCount('products', 4);
+        $this->assertCount(4, DummyModel::all());
 
         $request = new Request();
         $request->merge(['price' => '15/40']);

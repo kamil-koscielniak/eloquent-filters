@@ -21,7 +21,7 @@ class ExactFilterTest extends TestCase
         DummyModel::create(['name' => 'Motorbike', 'is_available' => false]);
         DummyModel::create(['name' => 'Scooter', 'is_available' => true]);
 
-        $this->assertDatabaseCount('products', 3);
+        $this->assertCount(3, DummyModel::all());
 
         $request = new Request();
         $request->merge(['is_available' => true]);
@@ -43,8 +43,8 @@ class ExactFilterTest extends TestCase
         DummyModel::create(['name' => 'Motorbike', 'is_available' => false]);
         DummyModel::create(['name' => 'Scooter', 'is_available' => true, 'category_id' => $category->id]);
 
-        $this->assertDatabaseCount('categories', 1);
-        $this->assertDatabaseCount('products', 3);
+        $this->assertCount(1, DummySubModel::all());
+        $this->assertCount(3, DummyModel::all());
 
         $request = new Request();
         $request->merge(['category__name' => 'Scooters']);
