@@ -8,7 +8,16 @@
             "email": "koscielniak.k88@gmail.com"
         }
     ],
-    "require": {},
+    "keywords": [
+        "kamil-koscielniak",
+        "eloquent-filters",
+        "laravel",
+        "eloquent",
+        "filters"
+    ],
+    "require": {
+        "php" : "^7.2"
+    },
     "require-dev": {
         "orchestra/testbench": "^5.2"
     },
@@ -21,5 +30,7 @@
         "psr-4": {
             "KamilKoscielniak\\EloquentFilters\\Tests\\": "tests/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
