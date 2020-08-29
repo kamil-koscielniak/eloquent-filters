@@ -16,10 +16,13 @@
         "filters"
     ],
     "require": {
-        "php" : "^7.2"
+        "php" : "^7.4",
+        "illuminate/http": "^6.0|^7.0",
+        "illuminate/support" : "^6.0|^7.0",
+        "illuminate/database": "^6.0|^7.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^5.2"
+        "orchestra/testbench": "^4.0"
     },
     "autoload": {
         "psr-4": {

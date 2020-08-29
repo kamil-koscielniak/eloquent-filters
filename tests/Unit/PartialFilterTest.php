@@ -22,7 +22,7 @@ class PartialFilterTest extends TestCase
      */
     public function test()
     {
-        $this->assertDatabaseCount('products', 3);
+        $this->assertCount(3, DummyModel::all());
 
         $request = new Request();
         $request->merge(['name' => 'bike']);
@@ -35,7 +35,7 @@ class PartialFilterTest extends TestCase
 
     public function test_exclusion()
     {
-        $this->assertDatabaseCount('products', 3);
+        $this->assertCount(3, DummyModel::all());
 
         $request = new Request();
         $request->merge(['name' => 'bike|e']);
