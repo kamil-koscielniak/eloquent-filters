@@ -1,5 +1,6 @@
 {
     "name": "kamil-koscielniak/eloquent-filters",
+    "type": "library",
     "description": "Simply way to add filters to Eloquent models",
     "license": "MIT",
     "authors": [
@@ -32,6 +33,13 @@
     "autoload-dev": {
         "psr-4": {
             "KamilKoscielniak\\EloquentFilters\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "KamilKoscielniak\\EloquentFilters\\EloquentFiltersProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
