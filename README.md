@@ -109,9 +109,43 @@ http://localhost/products?price=21.99|e/99.99
 
 Above example will retrieve products which price is `greater` than `21.99` and `lower or equal` than `99.99`
 
+## Searching in relationships
+
+Sample eloquent model with relationship filter:
+
+```php
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use KamilKoscielniak\EloquentFilters\Filters\PartialFilter;
+use KamilKoscielniak\EloquentFilters\Traits\Filterable;
+
+class Product extends Model
+{
+    use Filterable;
+    
+    public static array $filters = [
+        'category__code' => PartialFilter::class,
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+}
+```
+
+In example above filter `category__code` is relationship filter because it use `FILTERS_RELATIONSHIP_SEPARATOR`
+in name (by default `__`). In this filter name `category` is name of relationship and `code` is column name in related Category model.
+
+So this filter give you possibility to filter Product models by code of related Category model.
+
 ## Exclusion mode
 
-In each of above filter types you can use exclusion mode. Just add `|e` to value that you want to exclude.
+In each of filter types you can use exclusion mode. Just add `|e` suffix to value that you want to exclude.
 If you want use custom suffix you can change it, see Configuration section below. 
 
 ## Configuration
