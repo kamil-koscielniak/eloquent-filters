@@ -8,6 +8,10 @@ Laravel package for simply adding filters to Eloquent models.
 composer require kamil-koscielniak/eloquent-filters
 ```
 
+```bash
+php artisan vendor:publish --tag=config
+```
+
 ## Usage
 
 #### Step 1 - Define filters in Eloquent model
