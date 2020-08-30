@@ -21,7 +21,7 @@ use KamilKoscielniak\EloquentFilters\Filters\PartialFilter;
 use KamilKoscielniak\EloquentFilters\Filters\RangeFilter;
 use KamilKoscielniak\EloquentFilters\Traits\Filterable;
 
-class Order extends Model
+class Product extends Model
 {
     use Filterable;
     
@@ -44,40 +44,75 @@ For example you can filter your data like this
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Order;
+use App\Product;
 
-class OrderController extends Controller
+class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $orders = Order::filter($request)->get();
+        $products = Product::filter($request)->get();
 
-        return response()->json(compact('orders'));
+        return response()->json(compact('products'));
     }
 }
 ```
 
 ### Step 3 - Use filters in query string
 
-Example url below will return orders with **price** between **21.99** and **99.99**
+Example url below will return products with **price** between **21.99** and **99.99**
 ````
-http://localhost/orders?price=21.99/99.99
+http://localhost/products?price=21.99/99.99
 ````
 
 ## Available filter types
 
 #### PartialFilter
 
-For partial searching use `PartialFilter`
+For partial searching.
+
+Example usage:
+```bash
+http://localhost/products?name=blue
+```
+Above example will retrieve products which names contains phrase `blue`
 
 #### ExactFilter
 
-For a thorough searching use `ExactFilter`
+For exact searching.
+
+Example usage:
+```bash
+http://localhost/customers?name=mike
+```
+Above example will retrieve customers which names are equals to `mike` 
 
 #### RangeFilter
 
-For a range searching use `RangeFilter`
+For range searching.
 <br/>Use range separator `/` to separate min and max values
+
+Example usage:
+```bash
+http://localhost/products?price=21.99/99.99
+```
+Above example will retrieve products which price are between `21.99` and `99.99`
+
+Note that provided values must be numeric. 
+
+By default RangeFilter use operators `<=` and `>=`.
+If you don't want include provided values in search results than use exclusion mode.
+
+Example usage with exclusion mode:
+```bash
+http://localhost/products?price=21.99|e/99.99
+```
+
+Above example will retrieve products which price is `greater` than `21.99` and `lower or equal` than `99.99`
+
+## Exclusion mode
+
+In each of above filter types you can use exclusion mode. Just add `|e` to value that you want to exclude.
+If you want use custom suffix you can change it, see Configuration section below. 
 
 ## Configuration
 
